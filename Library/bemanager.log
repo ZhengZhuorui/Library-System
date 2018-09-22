@@ -1,0 +1,4 @@
+{'realID': 518167421789, 'level': 0, 'Err': 1, 'Username': 'Jerry', 'HaveLogin': 1, 'Succ': 0, 'ErrMsg': '序列号错误', 'stat': 0}
+{'Succ': 1, 'level': 0, 'Username': 'Jerry', 'Err': 0, 'stat': 0, 'HaveLogin': 1, 'realID': 518167421789}
+{'Succ': 0, 'Err': 1, 'ErrMsg': '序列号错误', 'realID': 518167421789, 'stat': 0, 'level': 0, 'HaveLogin': 1, 'Username': 'test1'}
+{'Succ': 1, 'Err': 0, 'realID': 518167421789, 'stat': 0, 'level': 0, 'HaveLogin': 1, 'Username': 'test1'}

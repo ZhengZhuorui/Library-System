@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block mainbody %}
+<div class="container" id="content">
+{% if Err %}
+<div class="alert">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <strong>更改失败!</strong><p>{{ErrMsg}}</p>
+</div>
+{% endif %}
+{% if Succ %}
+<div class="alert alert-success">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <strong>更改完成!</strong>
+</div>
+{% endif %}
+<form method="POST" action="/manageuser/" name="manageuserForm" class="form-horizontal">
+{% csrf_token %}
+  <legend>管理权限</legend>
+  <div class="control-group">
+    <label for="Username" class="control-label">Username</label>
+    <div class="controls">
+      <input type="text" id="name" name="name" placeholder="Username" value="{{name}}">
+    </div>
+  </div>
+  <div class="control-group">
+    <label for="level" class="control-label">权限</label>
+		<div class="controls">
+			<select type="text" name="level">
+				<option value="0" selected>正常用户</option>
+				<option value="-1">封禁用户</option>
+			</select>
+		</div>
+  </div>
+  <div class="form-submit">
+    <input type="submit" id="submit" name="submit" value="更改" class="btn btn-primary">
+  </div>
+</form>
+{% endblock %}

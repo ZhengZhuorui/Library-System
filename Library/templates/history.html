@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block mainbody %}
+<div class="container" id="content">
+	<table class="table table-hover table-condensed">
+	<caption>
+		<h2>Search</h2>
+	<div>
+	<form method="GET" action="/history/" class="form-inline">
+		<input type="text" name="user" class="span2" placeholder="借阅者">
+		<input type="text" name="isbn" class="span2" placeholder="isbn">
+		<input type="text" name="st_time" class="span2" placeholder="起始日期">
+		<input type="text" name="en_time" class="span2" placeholder="终止日期">
+		<select name="stat" class="span2">
+			<option value selected>--状态--</option>
+			<option value="0">已归还</option>
+			<option value="1">未归还</option>
+			<option value="2">全部</option>
+		</select>
+		<input type="submit" class="btn">
+	</form>
+	</div>
+	{% include "page.html" %}
+	</caption>
+	<thead>
+		<th>借阅者</th>
+		<th>isbn</th>
+		<th>借阅日期</th>
+		<th>是否归还</th>
+		<!--<th>借阅次数</th>-->
+	</thead>
+	
+	{% for book in books %}
+		<tr>
+			<!--<td>{{ book }}</td>-->
+			<td class="span1">{{ book.0 }}</td>
+			<td class="span4"><a href="/book/?isbn={{book.0}}">{{book.1}}</a></td>
+			<td class="span2">{{book.5}}</td>
+			<td>{{book.4}}</td>
+		</tr>
+	{% endfor %}
+	</table>
+</div>
+	<!--{%include "page.html" %}-->
+{% endblock %}

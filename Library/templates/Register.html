@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block mainbody %}
+<div class="container" id="content">
+{% if Err %}
+<div class="alert">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <strong>注册失败!</strong><p>{{ErrMsg}}</p>
+</div>
+{% endif %}
+{% if Succ %}
+<div class="alert alert-success">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <strong>注册完成!</strong><p>你已经成功注册，请登入并进入图书管理系统</p>
+</div>
+{% endif %}
+<form method="POST" action="/Register/" name="RegisterForm" class="form-horizontal">
+{% csrf_token %}
+  <legend>Register</legend>
+  <div class="control-group">
+    <label for="Username" class="control-label">Username</label>
+    <div class="controls">
+      <input type="text" id="Username" name="Username" placeholder="Username">
+    </div>
+  </div>
+  <div class="control-group">
+    <label for="Realname" class="control-label">Realname</label>
+    <div class="controls">
+      <input type="text" id="Realname" name="Realname" placeholder="Realname">
+    </div>
+  </div>
+  <div class="control-group">
+    <label for="Password" class="control-label">Password</label>
+    <div class="controls">
+      <input type="password" id="Password" name="Password" placeholder="Password">
+    </div>
+  </div>
+  <div class="control-group">
+    <label for="RePassword" class="control-label">Re-Password</label>
+    <div class="controls">
+      <input type="password" id="RePassword" name="RePassword" placeholder="Password, again">
+    </div>
+  </div>
+  <div class="control-group">
+    <label for="Email" class="control-label">Email</label>
+    <div class="controls">
+      <input type="email" id="Email" name="Email" placeholder="Email(Only for avatar)">
+    </div>
+  </div>
+  <!--<div class="control-group">
+    <label for="Signature" class="control-label">Signature Line</label>
+    <div class="controls">
+      <textarea type="Signature" id="Signature" name="Signature" placeholder="Signature" rows="8"></textarea>
+    </div>
+  </div>-->
+  <div class="form-submit">
+    <input type="submit" id="submit" name="submit" value="Register" class="btn btn-primary">
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block mainbody %}
+
+<div class="container" id="content">
+{% if Err %}
+<div class="alert">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <strong>错误!</strong><p>{{ErrMsg}}</p>
+</div>
+{% endif %}
+{% if Succ %}
+<div class="alert alert-success">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <strong>完成!</strong><p>你已续借该书</p>
+</div>
+{% endif %}
+<form method="POST" action="/rebrw/" name="ReturnForm" class="form-horizontal">
+	<legend>图书续借</legend>
+	<div class="control-group">
+    <label for="isbn" class="control-label">isbn</label>
+    <div class="controls">
+    <input type="text" name="isbn" value="{{isbn}}">
+    </div>
+  </div>
+  <div class="form-submit">
+    <input type="submit" name="submit" value="续借" class="btn btn-primary">
+  </div>
+</form>
+</div>
+{% endblock %}

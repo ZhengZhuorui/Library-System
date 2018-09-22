@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block mainbody %}
+<div class="container" id="content">
+{% if Err %}
+<div class="alert">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <strong>错误!</strong><p>{{ErrMsg}}</p>
+</div>
+{% endif %}
+{% if Succ %}
+<div class="alert alert-success">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <strong>完成!</strong><p>你已成功修改用户信息</p>
+</div>
+{% endif %}
+<form method="POST" action="/usermodify/" name="RegisterForm" class="form-horizontal">
+	<legend>用户更改</legend>
+	<div class="control-group">
+    <label for="old_password" class="control-label">密码</label>
+    <div class="controls">
+      <input type="password" id="old_password" name="old_password" placeholder="password">
+    </div>
+  </div>
+  <div class="control-group">
+    <label for="new_password" class="control-label">新密码</label>
+    <div class="controls">
+      <input type="password" id="new_password" name="new_password" placeholder="Blank if there is no need to change it">
+    </div>
+	</div>
+  <div class="control-group">
+    <label for="re_password" class="control-label">重复输入密码</label>
+    <div class="controls">
+      <input type="password" id="re_password" name="re_password" placeholder="New password, again">
+    </div>
+  </div>
+  <div class="control-group">
+    <label for="realname" class="control-label">真实名字</label>
+    <div class="controls">
+      <input type="text" id="realname" name="realname" placeholder="Blank if there is no need to change it">
+    </div>
+  </div>
+  <div class="control-group">
+    <label for="email" class="control-label">邮箱地址</label>
+    <div class="controls">
+      <input type="text" id="email" name="email" placeholder="Blank if there is no need to change it">
+    </div>
+  </div>
+  <div class="form-submit">
+    <input type="submit" id="update" name="update" value="update" class="btn btn-primary">
+  </div>
+  <input type="hidden" name="next" value={{next}}>
+</form>
+</div>
+{% endblock %}

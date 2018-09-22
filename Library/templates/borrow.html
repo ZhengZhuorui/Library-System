@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block mainbody %}
+
+<div class="container" id="content">
+{% if Err %}
+<div class="alert">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <strong>Warning!</strong><p>{{ErrMsg}}</p>
+</div>
+{% endif %}
+{% if Succ %}
+<div class="alert alert-success">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <strong>Success!</strong><p>You borrow this book</p>
+</div>
+{% endif %}
+<form method="POST" action="/borrow/" name="BorrowForm" class="form-horizontal">
+<legend>图书借阅</legend>
+	<div class="control-group">
+    <label for="isbn" class="control-label">isbn</label>
+    <div class="controls">
+    <input type="text" name="isbn" value="{{isbn}}">
+    </div>
+  </div>
+  <div class="form-submit">
+    <input type="submit" name="submit" value="借阅" class="btn btn-primary">
+  </div>
+</form>
+</div>
+{% endblock %}

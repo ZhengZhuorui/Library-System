@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block mainbody %}
+
+<div class="container" id="content">
+<h1 class="center">{{name}}</h1>
+
+
+
+<dl class="dl-horizontal">
+    <dt>isbn</dt><dd>{{isbn}}</dd>
+    <dt>作者</dt><dd>{{author}}</dd>
+	<dt>出版社</dt><dd>{{publisher}}</dd>
+    <!--<dt>Judge</dt><dd><span class="label">Standard Judge</span></dd>-->
+	<dt>语言</dt><dd>{{language}}</dd>
+    <dt>价格</dt><dd>{{price}}</dd>
+	<dt>数量</dt><dd>{{number}}</dd>
+	<dt>评分</dt><dd>{{avgscore}}</dd>
+	<dt>剩余</dt><dd>{{left}}</dd>
+	
+	
+  </dl>
+
+
+
+<div class="btn-group">
+	{% if HaveLogin %}
+	{% ifequal level 1 %}
+  <a class="btn btn-success" href="/return/?isbn={{isbn}}">归还</a>
+  <a class="btn btn-warning" href="/newbook/?isbn={{isbn}}">更改</a>
+  <a class="btn btn-danger" href="/rmbook/?isbn={{isbn}}">移除</a>
+  {% else %}
+  <a class="btn btn-danger" href="/borrow/?isbn={{isbn}}">借阅</a>
+  {% endifequal %}
+  {% endif %}
+</div>
+<section>
+  <h2>描述</h2>
+  <pre>{{description}}</pre>
+</section>
+
+	<div class="tabbable">
+	 <ul class="nav nav-tabs">
+    <li class="active"><a href="#L1" data-toggle="tab">{{comnum}}个评论</a></li>
+    {% if comed %}
+	<li><a href="#L2" data-toggle="tab">修改评论</a></li>
+	{% else %}
+	<li><a href="#L2" data-toggle="tab">发表评论</a></li>
+	{% endif %}
+	</ul>
+	<div class="tab-content">
+	<div class="tab-pane active" id="L1">
+	<ul class="pager">
+	
+	{% for comm in comms %}
+	<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title text-left">{{comm.4}}</h3>
+	</div>
+	<div class="panel-body">
+		{% ifnotequal comm.5 -1%}		
+		<form>
+		<label class="control-label pull-left"><strong>评分：</strong></label>
+		<input class="slstar" data-container-class='text-left' value="{{comm.5}}" data-size="xs" >
+		</form>
+		{% endifnotequal %}
+		
+		<div class="text-left">{{comm.2}}</div>
+		<footer class="text-right">评论于{{comm.1}}</footer>
+	</div>
+	</div>
+	{% endfor %}
+	{% if pagepre %}
+		<li class="previous"><a href="/book/{{isbn}}/{{pagep}}/#L1"><span aria-hidden="true">&larr;</span> Prev</a></li>
+	{% else %}
+		<li class="previous disabled"><a href="#L1"><span aria-hidden="true">&larr;</span> Prev</a></li>
+	{% endif %}
+	{% if pagenext %}
+		<li class="next"><a href="/book/{{isbn}}/{{pagen}}/#L1">Next <span aria-hidden="true">&rarr;</span></a></li>
+	{% else %}
+		<li class="next disabled"><a href="#L1">Next <span aria-hidden="true">&rarr;</span></a></li>
+	{% endif %}
+	</ul>
+	</div>
+	
+	<div class="tab-pane" id="L2">
+	{% if HaveLogin %}
+		<form method="POST" action="/comm/{{isbn}}/{{cmpg}}/" name="commForm" class="form-horizontal col-md-11">
+		<div class="form-group">
+			<label for="score" class="pull-left"><h4>评分：</h4></label>
+			<input class="star" type="number" class="rating" name="score" min=0 max=5 step=1 data-size="lg" >
+		</div>
+		<br>
+		
+		<div class="form-group">
+			<label for="comment" class=""><h4>评论</h4></label>
+			<!--<label></label>-->
+			<textarea class="" rows="3" type="text" placeholder="comment" name="comment" style="width:100%">{{commnt}}</textarea>	
+		</div>
+		
+		
+		<div class="form-submit">
+			<input type="submit" id="comm" name="comm" value="发表" class="btn btn-primary btn-large" style="margin-top:10px;">
+		</div>
+		</form>
+	{% else %}
+		<p>请先<a href="/login/">登录</a>或<a href="/Register/">注册</a></p>
+	{% endif %}
+	</div>
+	</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+	$(".star").rating();
+	$(".slstar").rating({readonly:true,showClear:false});
+</script>
+{% endblock %}

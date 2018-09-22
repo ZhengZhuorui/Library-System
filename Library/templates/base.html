@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html lang='zh-cn'>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Welcome to Library</title>
+	</head>
+	{% load static %}
+	<!--<link href="../static/css/bootstrap.min.css" rel="stylesheet" >
+	<link href="../static/css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link href="../static/css/fonts.css" rel="stylesheet" type="text/css">
+	<link href="../static/css/cofun.css" rel="stylesheet">-->
+	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+	<!--<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">-->
+	<script src="{% static 'js/bootstrap.js' %}"></script>
+	<script src="{% static 'js/star-rating.min.js' %}" type="text/javascript"></script>
+	
+	<link href="{% static 'css/star-rating.min.css' %}" media="all" rel="stylesheet" type="text/css" />
+	<link href="{% static 'css/bootstrap3.css' %}" rel="stylesheet" >
+	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" >
+	<link href="{% static 'css/bootstrap-responsive.min.css' %}" rel="stylesheet">
+	<link href="{% static 'css/fonts.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'css/cofun.css' %}" rel="stylesheet">
+	
+	<body>
+		<header>
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>
+				<ul class="nav">
+					<a class="brand" href="/index/">图书管理系统</a>
+					<li><a href="/search/">寻找图书</a></li>
+					
+					{% if HaveLogin %}
+					{% ifequal level 0 %}
+						<li><a href="/borrow/">借阅</a></li>
+					{% endifequal %}
+					<li><a href="/status/">记录 
+					{% ifequal stat 2%}<span class="badge badge-important">{{statnum}}</span>
+					{% else %}
+						{% ifequal stat 1%}
+						<span class="badge badge-warning">{{statnum}}</span>
+						{% endifequal %}
+					{% endifequal %}
+					</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">管理<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<!--<li><a href="/history/">History</a></li>-->
+						  {% ifequal level 1 %}
+							<li><a href="/newbook/">添加或更改图书</a></li>
+							<li><a href="/rmbook/">移除图书</a></li>
+							<li><a href="/return/">归还图书</a></li>
+							<li><a href="/manageuser/">管理权限</a></li>
+							<!--<li><a href="/manageusr/">管理学生</a></li>-->
+						  {% else %}
+							<!--<li><a href="/newbook/">Denote Books</a></li>-->
+							<li><a href="/bemanager/">成为管理员</a></li>	
+						  {% endifequal  %}
+						  
+						  <!--<li class="divider"></li>
+						  <li class="nav-header">Nav header</li>
+						  <li><a href="#">Separated link</a></li>
+						  <li><a href="#">One more separated link</a></li>-->
+						</ul>
+					</li>
+					{% endif %}
+				</ul>
+				{% include "baselogin.html" %}
+				</div>
+			</div>
+		</div>
+	</header>
+		{%block mainbody%}
+		{%endblock%}	
+	</body>
+	
+</html>

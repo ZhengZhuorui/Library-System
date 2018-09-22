@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block mainbody %}
+<div class="container" id="content">
+	<table class="table table-hover table-condensed">
+	<caption>
+		<h2>查询图书</h2>
+	<div>
+	<form method="GET" action="/search/" class="form-inline">
+	
+		<input type="text" name="isbn" class="span2" placeholder="isbn" value="{{isbn}}" >
+		<input type="text" name="name" class="span2" placeholder="书名" value="{{name}}">
+		<input type="text" name="publisher" class="span2" placeholder="出版社" value="{{publisher}}">
+		<select type="text" name="language" class="span2">
+			<option value select>--语言--</option>
+			<option value="1">汉语</option>
+			<option value="2">英语</option>
+			<option value="3">其他</option>
+		</select>
+		<select type="text" name="stat" class="span2">
+			<option value selected>--状态--</option>
+			<option value="0">有剩余</option>
+			<option value="1">全部</option>
+		</select>
+		<input type="submit" class="btn">
+	</form>
+	</div>
+	</table>
+	<div class="pagination text-center">
+  <ul>
+    {% if pagepre %}
+		<li><a href="/search/{{pagepn}}/?isbn={{isbn}}&name={{name}}&publisher={{publisher}}&language={{language}}&stat={{stat}}">Prev</a></li>
+	{% else %}
+		<li class="disabled">
+			<a href="#">Prev</a>
+		</li>
+	{% endif %}
+	{% for page in pages %}
+    <li><a href="/search/{{page}}/?isbn={{isbn}}&name={{name}}&publisher={{publisher}}&language={{language}}&stat={{stat}}">{{page}}</a></li>
+	{% endfor %}
+	{% if pagenext %}
+		<li><a href="/search/{{pagenn}}/?isbn={{isbn}}&name={{name}}&publisher={{publisher}}&language={{language}}&stat={{stat}}">Next</a></li>
+	{% else %}
+		<li class="disabled">
+			<a href="#">Next</a>
+		</li>
+	{% endif %}
+  </ul>
+</div>
+
+	</caption>
+	<div>
+	<!--<thead>
+		<th>isbn</th>
+		<th>书名</th>
+		<th>出版社</th>
+		<th>剩余数量</th>
+		<th>借阅次数</th>
+	</thead>-->
+	
+	{% for book in books %}
+		<!--<tr>
+			
+			<td class="span2">{{ book.0 }}</td>
+			<td class="span4"><a href="/book/{{book.0}}/">{{book.1}}</a></td>
+			<td class="span4">{{book.5}}</td>
+			<td>{{book.4}}</td>
+			<td>{{book.8}}</td>
+		</tr>-->
+		
+		<div class="panel panel-default col-md-3 col-md-offset-r1" style="height:600px;">
+			<br>
+			{% load static %}
+			<img src="/static/img/book_{{book.0}}.jpg" class="img-rounded" alt="None">
+			
+			<h3><a href="/book/{{book.0}}/">{{book.1}}</a></h3>
+			<p><strong>ISBN</strong>：{{book.0}}</p>
+			<p><strong>作者</strong>：{{book.12}}</p>
+			<p><strong>出版社</strong>：{{book.5}}</p>
+			<p><strong>剩余数量</strong>：{{book.4}}</p>
+			{% if book.11 %}
+				<p><strong>评分</strong>：{{book.9|floatformat:1}}</p>
+			{% else %}
+				<p><strong>暂无评分</strong></p>
+			{% endif %}
+			<p><strong>借阅次数</strong>：{{book.8}}</p>
+		</div>
+		
+	{% endfor %}
+	</div>
+</div>
+	<!--{%include "page.html" %}-->
+{% endblock %}

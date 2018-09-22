@@ -1,0 +1,21 @@
+<div class="pagination">
+  <ul>
+    {% if pagepre %}
+		<li><a href="/search/{{pagepn}}/">Prev</a></li>
+	{% else %}
+		<li class="disabled">
+			<a href="#">Prev</a>
+		</li>
+	{% endif %}
+	{% for page in pages %}
+    <li><a href="/search/{{page}}/">{{page}}</a></li>
+	{% endfor %}
+	{% if pagenext %}
+		<li><a href="/search/{{pagenn}}/">Next</a></li>
+	{% else %}
+		<li class="disabled">
+			<a href="#">Next</a>
+		</li>
+	{% endif %}
+  </ul>
+</div>

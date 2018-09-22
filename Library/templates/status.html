@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block mainbody %}
+<div class="container" id="content">
+	<table class="table table-hover table-condensed">
+	<caption>
+		<h2>记录</h2>
+	<div>
+	<form method="GET" action="/status/" class="form-inline">
+		{% ifequal level 1 %}
+		<input type="text" name="user" class="span2" placeholder="借阅者" value="{{user}}">
+		{% endifequal  %}
+		<input type="text" name="isbn" class="span2" placeholder="isbn" value="{{isbn}}">
+		<input type="text" name="st_date" class="span2" placeholder="起始日期:xxxx-xx-xx" value="{{st_date}}">
+		<input type="text" name="en_date" class="span2" placeholder="终止日期:xxxx-xx-xx" value="{{en_date}}">
+		<select type="text" name="stat" class="span2">
+			<option value selected>--状态--</option>
+			<option value="0">已归还</option>
+			<option value="1">未归还</option>
+			<option value="2">已续借</option>
+			<option value="3">全部</option>
+		</select>
+		<input type="submit" class="btn">
+	</form>
+	</div>
+	<div class="pagination">
+  <ul>
+    {% if pagepre %}
+		<li><a href="/status/{{pagepn}}/?user={{user}}&isbn={{isbn}}&st_date={{st_date}}&en_date={{en_date}}&stat={{stat}}">Prev</a></li>
+	{% else %}
+		<li class="disabled">
+			<a href="#">Prev</a>
+		</li>
+	{% endif %}
+	{% for page in pages %}
+    <li><a href="/status/{{page}}/?user={{user}}&isbn={{isbn}}&st_date={{st_date}}&en_date={{en_date}}&stat={{stat}}">{{page}}</a></li>
+	{% endfor %}
+	{% if pagenext %}
+		<li><a href="/status/{{pagenn}}/?user={{user}}&isbn={{isbn}}&st_date={{st_date}}&en_date={{en_date}}&stat={{stat}}">Next</a></li>
+	{% else %}
+		<li class="disabled">
+			<a href="#">Next</a>
+		</li>
+	{% endif %}
+  </ul>
+</div>
+	</caption>
+	
+	
+	
+	<thead>
+		<th>借阅者</th>
+		<th>isbn</th>
+		<th>借阅日期</th>
+		<th>归还日期</th>
+		<!--<th>借阅次数</th>-->
+	</thead>
+	
+	{% for brw in brws %}
+		<tr>
+			<!--<td>{{ book }}</td>-->
+			<td class="span4"><a href="/manageuser/?name={{brw.con.3}}">{{ brw.con.3 }}</a></td>
+			<td class="span4">{{brw.con.2}}</td>
+			<td class="span2">{{brw.con.1}}</td>
+			{% if brw.con.4 %}
+				<td>
+					<div>
+					{% ifequal level 1 %}
+						<a href="/return/?name={{brw.con.3}}&isbn={{brw.con.2}}">尚未归还</a>
+					{% else %}
+						<p>尚未归还</p>
+					{% endifequal  %}
+					
+					</div>
+				</td>
+				
+					
+				
+			{% else %}
+			<td>{{brw.con.5}}</td>
+			{% endif  %}
+			<td>
+				{% if brw.rbw %}
+					<a href="/rebrw/?name={{brw.con.3}}&isbn={{brw.con.2}}">续借</a>
+				{% endif %}
+			</td>	
+		</tr>
+	{% endfor %}
+	</table>
+</div>
+	<!--{%include "page.html" %}-->
+{% endblock %}

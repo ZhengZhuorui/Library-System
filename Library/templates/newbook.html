@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block mainbody %}
+<div class="container" id="content">
+{% if Err %}
+<div class="alert">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <strong>Warning!</strong><p>{{ErrMsg}}</p>
+</div>
+{% endif %}
+{% if Succ %}
+<div class="alert alert-success">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <strong>Success!</strong><p>You add a book in Library</p>
+</div>
+{% endif %}
+<form method="POST" action="/newbook/" enctype="multipart/form-data" name="LoginForm" class="form-horizontal">
+	<legend>添加/修改书籍</legend>
+	<div class="control-group">
+		<label for="Bookname" class="control-label">书名</label>
+		<div class="controls">
+			<input type="text" id="Bookname" name="bookname" value="{{name}}">
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label for="isbn" class="control-label">ISBN</label>
+		<div class="controls">
+			<input type="text" id="ISBN" name="isbn" value="{{isbn}}">
+		</div>
+	</div>
+	<div class="control-group">
+		<label for="publisher" class="control-label">出版社</label>
+		<div class="controls">
+			<input type="text" id="Publisher" name="publisher" value="{{publisher}}">
+		</div>
+	</div>
+	<div class="control-group">
+		<label for="author" class="control-label">作者</label>
+		<div class="controls">
+			<input type="text" id="author" name="author" value="{{author}}">
+		</div>
+	</div>
+	<div class="control-group">
+		<label for="Number" class="control-label">数量</label>
+		<div class="controls">
+			<input type="text" id="Number" name="number" value="{{number}}">
+		</div>
+	</div>
+	<div class="control-group">
+		<label for="Price" class="control-label">价格</label>
+		<div class="controls">
+			<input type="text" id="price" name="price" value="{{price}}">
+		</div>
+	</div>
+	<div class="control-group">
+		<label for="Language" class="control-label">语言</label>
+		<div class="controls">
+			<select type="text" name="language" class="span2">
+				<!--<option value selected>--语言--</option>-->
+				<option value="1" selected>汉语</option>
+				<option value="2">英语</option>
+				<option value="3">其他</option>
+			</select>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label for="image" class="control-label">图书封面</label>
+		<div class="controls">
+		<input type="file" id="chooseImage" name="image">  
+		</div>
+	</div>
+	<div class="control-group">
+    <label for="BookDescription" class="biglabel">描述</label>
+    <textarea class="form-control" rows="20" type="text" placeholder="Description" name="description">{{description}}</textarea>
+	</div>
+	<div class="form-submit">
+    <input type="submit" id="submit" name="submit" value="添加或更改" class="btn btn-primary">
+  </div>
+</form>
+
+{% endblock %}	
+	
+	
